@@ -196,25 +196,31 @@
   .step-body li { margin-bottom: 2px; }
 
   /* CODE BLOCK + COPY BUTTON */
-  .copy-wrap { position: relative; }
-  .copy-wrap pre {
+  .copy-wrap { 
+    position: relative; 
+    display: flex;
+    flex-direction: column;
     background: #1A1A1A;
-    color: #E8E8E8;
     border-radius: 10px;
+    max-height: 500px;
+  }
+  .copy-wrap pre {
+    color: #E8E8E8;
     padding: 20px 80px 20px 22px;
     font-size: 12px;
     line-height: 1.7;
-    max-height: 500px;
     overflow-y: auto;
     overflow-x: auto;
     white-space: pre-wrap;
     word-break: break-word;
     font-family: 'SF Mono', 'Fira Code', monospace;
+    flex: 1;
   }
   .copy-btn {
     position: absolute;
     top: 16px;
     right: 24px;
+    z-index: 10;
     background: var(--lime);
     color: var(--black);
     border: none;
@@ -234,13 +240,18 @@
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 20px 80px 20px 22px;
     position: relative;
     max-height: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+  .desc-inner {
+    padding: 20px 80px 20px 22px;
     overflow-y: auto;
+    flex: 1;
   }
   .desc-block p { font-size: 14px; color: var(--mid); line-height: 1.65; }
-  .desc-block .copy-btn { top: 16px; right: 24px; position: absolute; }
+  .desc-block .copy-btn { top: 16px; right: 24px; position: absolute; z-index: 10; }
 
   /* FOOTER */
   footer {
@@ -257,31 +268,27 @@
   footer a:hover { text-decoration: underline; }
 
   @media (max-width: 600px) {
-    nav { padding: 12px 20px; border-bottom: 1px solid var(--border); }
-    .hero { padding: 40px 20px 30px; }
-    .eyebrow { margin-bottom: 12px; }
-    h1 { margin-bottom: 16px; font-size: clamp(28px, 5vw, 36px); }
-    .hero-sub { font-size: 15px; margin-bottom: 24px; }
-    .callout-wrap { margin: 0 auto 40px; padding: 0 20px; }
-    .callout { padding: 16px 20px; gap: 16px; }
-    .callout p { font-size: 13px; }
-    .content { padding: 0 20px 60px; }
-    section { margin-bottom: 40px; }
-    h2 { font-size: 20px; margin-bottom: 16px; }
-    .meta-card { padding: 12px 14px; }
-    .meta-card .label { font-size: 10px; }
-    .meta-card .val { font-size: 13px; }
-    .steps { gap: 12px; }
-    .step { padding: 14px 16px; gap: 12px; }
-    .step-num { font-size: 24px; width: 28px; }
-    .step-body strong { font-size: 13px; }
-    .step-body p, .step-body li { font-size: 12.5px; }
-    .copy-wrap pre { padding: 16px 60px 16px 18px; font-size: 11px; max-height: 400px; }
-    .copy-btn { padding: 5px 12px; font-size: 11px; }
-    .desc-block { padding: 16px 60px 16px 18px; max-height: 250px; }
-    .desc-block p { font-size: 13px; }
+    nav { padding: 12px 20px; }
+    .hero { padding: 30px 20px 20px; }
+    .eyebrow { margin-bottom: 8px; }
+    h1 { margin-bottom: 12px; }
+    .hero-sub { margin-bottom: 20px; }
+    .callout-wrap { margin-bottom: 30px; }
+    .callout { padding: 16px 20px; gap: 12px; }
+    .content { padding-bottom: 40px; }
+    section { margin-bottom: 30px; }
+    h2 { margin-bottom: 12px; padding-bottom: 8px; }
+    .meta-grid { gap: 8px; }
+    .meta-card { padding: 12px; }
+    .meta-card .label { margin-bottom: 4px; }
+    .steps { gap: 8px; }
+    .step { padding: 12px 14px; gap: 10px; }
+    .step-num { width: 24px; }
+    .copy-wrap { max-height: 400px; }
+    .copy-wrap pre { padding: 16px 80px 16px 18px; }
+    .desc-inner { padding: 16px 80px 16px 18px; }
+    .desc-block { max-height: 250px; }
     footer { padding: 16px 20px; }
-    footer p { font-size: 11px; }
   }
 </style>
 </head>
@@ -339,7 +346,9 @@
     <h2>Skill Description</h2>
     <p style="font-size:13px; color:var(--mid); margin-bottom:12px;">Copy this into the <strong>Description</strong> field when adding the skill to Claude.</p>
     <div class="desc-block">
-      <p id="desc-text">Builds a fully functional Typeform-style one-question-at-a-time form as a production-ready .tsx file AND a standalone HTML file, deployable on any website — Framer, Webflow, Squarespace, Wix, Wordpress, vibe-coded sites, custom React apps, or anywhere else. Use this skill whenever someone asks to build a custom form, application form, lead gen form, quiz, survey, qualification funnel, or typeform clone. Trigger even if they say "form", "apply", "quiz", "survey", "funnel", or "questions" — especially if they mention Framer, TSX, React, Webflow, Squarespace, Wix, WordPress, or Google Sheets integration. Always use this skill proactively when a multi-step form or application flow is requested, even if the word "typeform" is never used.</p>
+      <div class="desc-inner">
+        <p id="desc-text">Builds a fully functional Typeform-style one-question-at-a-time form as a production-ready .tsx file AND a standalone HTML file, deployable on any website — Framer, Webflow, Squarespace, Wix, Wordpress, vibe-coded sites, custom React apps, or anywhere else. Use this skill whenever someone asks to build a custom form, application form, lead gen form, quiz, survey, qualification funnel, or typeform clone. Trigger even if they say "form", "apply", "quiz", "survey", "funnel", or "questions" — especially if they mention Framer, TSX, React, Webflow, Squarespace, Wix, WordPress, or Google Sheets integration. Always use this skill proactively when a multi-step form or application flow is requested, even if the word "typeform" is never used.</p>
+      </div>
       <button class="copy-btn" onclick="copyText('desc-text', this)">Copy</button>
     </div>
   </section>
