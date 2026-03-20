@@ -262,7 +262,7 @@
 
 <nav>
   <a href="https://theinfostudio.io" class="logo">TheInfoStudio</a>
-  <a href="https://theinfostudio.io" class="cta-small">Book a call ↗</a>
+  <a href="https://theinfostudio.io" class="cta-small">book a call at theinfostudio.io ↗</a>
 </nav>
 
 <div class="hero">
@@ -275,6 +275,7 @@
 <div class="callout">
   <p><strong>If you are a B2B business and are looking to sign 5-10 high ticket clients on autopilot,</strong> we will set up a VSL funnel including: funnel design + copy, VSL scripting, pre-call email sequences, calendar and CRM integrations.</p>
   <a href="https://theinfostudio.io">book a call at theinfostudio.io</a>
+
 </div>
 </div>
 
@@ -533,6 +534,8 @@ function isValidPhoneFormat(raw) {
 
 Layer 2:
 async function checkPhoneReal(phone) {
+  // Skip API check entirely if no key is configured — never block users with a placeholder key
+  if (!ABSTRACT_API_KEY || ABSTRACT_API_KEY.includes("YOUR_")) return true
   try {
     const res = await fetch(
       `https://phonevalidation.abstractapi.com/v1/?api_key=${ABSTRACT_API_KEY}&phone=${encodeURIComponent(phone)}`
@@ -540,9 +543,13 @@ async function checkPhoneReal(phone) {
     const json = await res.json()
     return json.valid === true
   } catch {
-    return true // fail open
+    return true // fail open on any network error
   }
 }
+
+⚠️ CRITICAL: The if (!ABSTRACT_API_KEY || ABSTRACT_API_KEY.includes("YOUR_")) return true
+guard MUST be the first line of checkPhoneReal. Without it, a placeholder key causes
+the API to return valid: false for every real phone number, blocking all users.
 
 Contact validator must be async, show "Checking..." during API call, fail open.
 
@@ -642,7 +649,7 @@ Framer, Webflow, Squarespace, Wix, WordPress, Custom HTML, React, Universal iFra
 
 <footer>
   <p>A free resource by <a href="https://theinfostudio.io">TheInfoStudio.io</a></p>
-  <p><a href="https://theinfostudio.io">Book a call ↗</a></p>
+  <p><a href="https://theinfostudio.io">book a call at theinfostudio.io ↗</a></p>
 </footer>
 
 <script>
