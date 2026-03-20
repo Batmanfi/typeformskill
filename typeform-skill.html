@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typeform TSX Skill — TheInfoStudio</title>
+<link href="https://fonts.googleapis.com/css2?family=Faculty+Glyphic&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F8F6EE;
+    --blue: #1A1AE6;
+    --blue-dark: #1212B0;
+    --lime: #C8F135;
+    --black: #111;
+    --mid: #555;
+    --border: #D8D5C8;
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--black);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Faculty Glyphic', serif;
+    font-size: 22px;
+    letter-spacing: -0.03em;
+    color: var(--blue);
+    text-decoration: none;
+  }
+  .logo span { display: none; }
+  nav a.cta-small {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue);
+    text-decoration: none;
+    border: 1px solid var(--blue);
+    padding: 7px 16px;
+    border-radius: 100px;
+    transition: background 0.15s, color 0.15s;
+  }
+  nav a.cta-small:hover { background: var(--blue); color: #fff; }
+
+  /* HERO */
+  .hero {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 40px 60px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Faculty Glyphic', serif;
+    font-size: clamp(36px, 6vw, 58px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--blue);
+    margin-bottom: 22px;
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: var(--mid);
+    max-width: 540px;
+    margin-bottom: 36px;
+  }
+
+  /* CALLOUT STRIP */
+  .callout-wrap {
+    max-width: 780px;
+    margin: 0 auto 60px;
+    padding: 0 40px;
+  }
+  .callout {
+    background: var(--blue);
+    color: #fff;
+    border-radius: 12px;
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .callout p { font-size: 14px; font-weight: 300; line-height: 1.5; opacity: 0.88; max-width: 500px; }
+  .callout strong { font-weight: 500; opacity: 1; }
+  .callout a {
+    background: var(--lime);
+    color: var(--black);
+    font-weight: 500;
+    font-size: 13px;
+    padding: 10px 20px;
+    border-radius: 100px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: opacity 0.15s;
+  }
+  .callout a:hover { opacity: 0.85; }
+  @media (max-width: 600px) {
+    .callout-wrap { padding: 0 20px; }
+  }
+
+  /* MAIN CONTENT */
+  .content {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  /* SECTION */
+  section { margin-bottom: 56px; }
+  h2 {
+    font-family: 'Faculty Glyphic', serif;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 8px;
+    margin-top: 24px;
+  }
+
+  /* METADATA GRID */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 560px) { .meta-grid { grid-template-columns: 1fr; } }
+  .meta-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .meta-card .label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); margin-bottom: 6px; }
+  .meta-card .val { font-size: 14px; color: var(--black); font-weight: 400; }
+  .meta-card code { background: #f0eeE8; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .tag { background: #EEEAE0; color: var(--black); font-size: 12px; padding: 3px 10px; border-radius: 100px; font-weight: 400; }
+
+  /* STEPS */
+  .steps { display: flex; flex-direction: column; gap: 16px; }
+  .step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .step-num {
+    font-family: 'Faculty Glyphic', serif;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--blue);
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+    width: 32px;
+  }
+  .step-body { flex: 1; }
+  .step-body strong { font-size: 14px; font-weight: 500; display: block; margin-bottom: 4px; }
+  .step-body p, .step-body li { font-size: 13.5px; color: var(--mid); }
+  .step-body ul { padding-left: 16px; margin-top: 6px; }
+  .step-body li { margin-bottom: 2px; }
+
+  /* CODE BLOCK + COPY BUTTON */
+  .copy-wrap { position: relative; }
+  .copy-wrap pre {
+    background: #1A1A1A;
+    color: #E8E8E8;
+    border-radius: 10px;
+    padding: 20px 22px;
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--lime);
+    color: var(--black);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.15s;
+  }
+  .copy-btn:hover { opacity: 0.8; }
+  .copy-btn.copied { background: #4CAF50; color: #fff; }
+
+  /* DESCRIPTION COPY BLOCK */
+  .desc-block {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+    position: relative;
+  }
+  .desc-block p { font-size: 14px; color: var(--mid); line-height: 1.65; padding-right: 80px; }
+  .desc-block .copy-btn { top: 16px; right: 16px; position: absolute; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  footer p { font-size: 12px; color: var(--mid); }
+  footer a { color: var(--blue); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    nav, .hero, .content, footer { padding-left: 20px; padding-right: 20px; }
+    .hero { padding-top: 50px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://theinfostudio.io" class="logo">TheInfoStudio</a>
+  <a href="https://theinfostudio.io" class="cta-small">Book a call ↗</a>
+</nav>
+
+<div class="hero">
+  <p class="eyebrow">Free Claude Skill</p>
+  <h1>Typeform TSX<br>Form Builder</h1>
+  <p class="hero-sub">Add this skill to Claude and it will interview you, then generate a production-ready Typeform-style form — both a React/TSX and a standalone HTML file — in minutes.</p>
+</div>
+
+<div class="callout-wrap">
+<div class="callout">
+  <p><strong>Want us to build your funnel?</strong> We build high-converting VSL funnels for B2B coaches & agencies — design, copy, email sequences, CRM integrations and more.</p>
+  <a href="https://theinfostudio.io">Book a call</a>
+</div>
+</div>
+
+<div class="content">
+
+  <section>
+    <h2>Skill Overview</h2>
+    <div class="meta-grid">
+      <div class="meta-card">
+        <div class="label">Skill name</div>
+        <div class="val"><code>typeform-tsx</code></div>
+      </div>
+      <div class="meta-card">
+        <div class="label">Output</div>
+        <div class="val"><code>.tsx</code> + <code>.html</code> + Google Sheets setup</div>
+      </div>
+      <div class="meta-card" style="grid-column: 1 / -1;">
+        <div class="label">Trigger phrases</div>
+        <div class="tags" style="margin-top:8px;">
+          <span class="tag">build me a form</span>
+          <span class="tag">application form</span>
+          <span class="tag">lead gen form</span>
+          <span class="tag">quiz / survey / funnel</span>
+          <span class="tag">typeform</span>
+          <span class="tag">embed on Framer</span>
+          <span class="tag">Webflow form</span>
+          <span class="tag">Squarespace / Wix / WordPress</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Skill Description</h2>
+    <p style="font-size:13px; color:var(--mid); margin-bottom:12px;">Copy this into the <strong>Description</strong> field when adding the skill to Claude.</p>
+    <div class="desc-block">
+      <p id="desc-text">Builds a fully functional Typeform-style one-question-at-a-time form as a production-ready .tsx file AND a standalone HTML file, deployable on any website — Framer, Webflow, Squarespace, Wix, Wordpress, vibe-coded sites, custom React apps, or anywhere else. Use this skill whenever someone asks to build a custom form, application form, lead gen form, quiz, survey, qualification funnel, or typeform clone. Trigger even if they say "form", "apply", "quiz", "survey", "funnel", or "questions" — especially if they mention Framer, TSX, React, Webflow, Squarespace, Wix, WordPress, or Google Sheets integration. Always use this skill proactively when a multi-step form or application flow is requested, even if the word "typeform" is never used.</p>
+      <button class="copy-btn" onclick="copyText('desc-text', this)">Copy</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>How to Add This Skill to Claude</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Go to Claude.ai and open a Project</strong>
+          <p>Skills live inside Projects. Create one if you don't have one: click <em>Projects</em> → <em>+ New Project</em>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Open project instructions</strong>
+          <p>Inside your project, click <em>Set project instructions</em> (the pencil icon).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Paste the full skill prompt</strong>
+          <p>Copy everything from the Skill Prompt section below and paste it into the instructions box. Click Save.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Start a chat and say:</strong>
+          <p><em>"Build me a Typeform-style application form for my coaching program"</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Skill Prompt</h2>
+    <p style="font-size:13px; color:var(--mid); margin-bottom:14px;">Copy everything below and paste it into your Claude project instructions.</p>
+    <div class="copy-wrap">
+      <pre id="skill-prompt">name: typeform-tsx
+description: >
+  Builds a fully functional Typeform-style one-question-at-a-time form as a
+  production-ready .tsx file AND a standalone HTML file, deployable on any
+  website — Framer, Webflow, Squarespace, Wix, Wordpress, vibe-coded sites,
+  custom React apps, or anywhere else. Use this skill whenever someone asks to
+  build a custom form, application form, lead gen form, quiz, survey,
+  qualification funnel, or typeform clone. Trigger even if they say "form",
+  "apply", "quiz", "survey", "funnel", or "questions" — especially if they
+  mention Framer, TSX, React, Webflow, Squarespace, Wix, WordPress, or Google
+  Sheets integration. Always use this skill proactively when a multi-step form
+  or application flow is requested, even if the word "typeform" is never used.
+
+# Typeform TSX Skill
+
+Generates a complete, embed-ready form by interviewing the user, then
+outputting both a .tsx (React/Framer) and a .html (works anywhere) file,
+plus easy-to-follow Google Sheets setup instructions.
+
+---
+
+## Phase 1 — Interview
+
+Ask ALL of the following using the ask_user_input_v0 tool. Do not skip any.
+
+### Round 1 (always ask first)
+
+1. What is this form for?
+   (application, lead gen, survey, quiz, onboarding, feedback, other)
+
+2. What is your brand name?
+
+3. What theme? (dark / light)
+
+4. Primary accent color?
+   (hex code or description — e.g. "electric blue", "gold")
+
+5. Where will this form live? (select all that apply)
+   - Framer
+   - Webflow
+   - Squarespace / Wix / Wordpress
+   - Custom / vibe-coded website (HTML)
+   - React app (not Framer)
+   - Not sure yet
+
+### Round 2 (always ask second)
+
+6. Does this form qualify or disqualify people?
+   (yes — send qualified to Calendly/URL | no — just collect data)
+
+7. If yes: what is your Calendly or redirect URL?
+
+8. Do you want data sent to Google Sheets? (yes / no / later)
+
+9. Should the form have a welcome screen? (yes / no)
+
+### Round 3 — Questions
+
+Provide this template and wait for the user to fill it in:
+
+QUESTION 1
+Type: contact-info | short-text | long-text | email | multiple-choice | yes-no | number
+Text: The question text?
+Options (if multiple-choice): A) ... B) ... C) ...
+Logic:
+  - If A → go to Q3
+  - If B → END (disqualify)
+  - Else → go to Q2
+
+QUESTION 2
+...
+
+Rules to tell the user:
+- No branching? Write Logic: none
+- Early exit? Write → END (qualified) or → END (disqualified)
+
+**Wait for the user to paste their questions before writing any code.**
+
+---
+
+## Phase 2 — Plan (internal only)
+
+Before writing code, map out:
+
+1. Step type union — every numeric step + outcome strings
+2. Answers interface — one key per stored answer
+3. useState fields — one per text/textarea input
+4. Logic map — routing rules per choice, disqualify triggers
+5. Sheet key map — answer key → Google Sheet column name
+6. Theme tokens: bg / surface / border / accent / accentDim / text / textMuted
+7. Deploy targets — which files to generate based on Round 1 Q5
+
+---
+
+## Phase 3 — Files to Generate
+
+Always generate both:
+
+File A — [BrandName]Form.tsx
+React component. Works in Framer, React apps, Next.js, Vite, etc.
+
+File B — [BrandName]Form.html
+Single self-contained HTML file. No build step, no dependencies.
+Works on ANY website via iframe embed or direct hosting.
+The HTML file is a direct port of the TSX — same logic, same styling,
+same validation, same Google Sheets integration — just vanilla JS.
+
+Save both to /mnt/user-data/outputs/ and present both with present_files.
+
+---
+
+## Phase 3a — TSX Code Generation Rules
+
+### Structure
+
+1. imports (useState, useEffect, useRef only)
+2. Step type union
+3. Answers interface
+4. CONFIG block (BRAND_NAME, THEME tokens, CALENDLY_URL, SHEET_URL, ABSTRACT_API_KEY)
+5. Sub-components: Choice, OkButton, TextInput, FieldBlock, ErrMsg, Hint
+6. Main export default function
+   - state: step, animDir, visible, field values, sel, err, phoneChecking
+   - goTo(), pick(), isValidPhoneFormat(), checkPhoneReal()
+   - validator functions
+   - sendToSheet() — EXPLICIT key mapping only
+   - keyboard useEffect
+   - slideStyle + qText
+   - JSX: progress → main → slides → bottom nav
+
+### Styling rules (TSX)
+
+- ALL styles inline — no CSS files, no Tailwind
+- minHeight: "100vh" on root — NEVER height: "100vh"
+- No position: absolute on active slides — position: relative when active
+- No overflow: hidden anywhere
+- Slide transition: opacity + translateY, 280ms, out then in
+- Progress bar: 4px, accent fill, smooth transition
+- Bottom nav: border-top, step counter, up/down arrows
+
+---
+
+## Phase 3b — HTML File Generation Rules
+
+The HTML file must be 100% self-contained — one file, no imports, no npm,
+no build step. It must work when opened directly in a browser or dropped into
+any website as an iframe.
+
+HTML-specific rules:
+- Use const SHEET_URL = "YOUR_APPS_SCRIPT_URL_HERE" and
+  const ABSTRACT_API_KEY = "YOUR_ABSTRACT_API_KEY" at top of script
+- Slides: use CSS classes .slide, .slide.active, .slide.exit toggled via JS
+- body { min-height: 100vh; display: flex; flex-direction: column; }
+- No height: 100vh, no overflow: hidden
+- Phone validation: checkPhoneReal is async, show "Checking..." on OK button
+- sendToSheet(): identical explicit key mapping as TSX version
+- Keyboard: document.addEventListener('keydown', ...) — Enter to advance
+- Font: load Inter via Google Fonts link in head
+
+---
+
+## Phase 4 — Shared Logic Rules (applies to BOTH files)
+
+### Validation
+
+- contact-info: name non-empty → phone format → phone real check → email regex
+- text/long-text: non-empty
+- multiple-choice: selection required, OK disabled until picked
+- Clear error on every advance
+
+### Phone Validation (both files)
+
+Layer 1:
+function isValidPhoneFormat(raw) {
+  const digits = raw.replace(/[\s\-().+]/g, "")
+  return /^\d{7,15}$/.test(digits)
+}
+
+Layer 2:
+async function checkPhoneReal(phone) {
+  try {
+    const res = await fetch(
+      `https://phonevalidation.abstractapi.com/v1/?api_key=${ABSTRACT_API_KEY}&phone=${encodeURIComponent(phone)}`
+    )
+    const json = await res.json()
+    return json.valid === true
+  } catch {
+    return true // fail open
+  }
+}
+
+Contact validator must be async, show "Checking..." during API call, fail open.
+
+### Logic routing
+
+Zero-indexed (A=0, B=1, C=2, D=3, E=4). Map user's logic exactly.
+Disqualify routes call sendToSheet("disqualified") before goTo("disqualified").
+Qualify routes call sendToSheet("qualified") before goTo("qualified").
+
+### sendToSheet — CRITICAL (both files)
+
+Always explicit key mapping. Never spread the answers object.
+Every key must exactly match the Apps Script data.key.
+
+function sendToSheet(outcome) {
+  if (!SHEET_URL || SHEET_URL.includes("YOUR_")) return
+  fetch(SHEET_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      timestamp: new Date().toISOString(),
+      name:      ans.name  || "",
+      phone:     ans.phone || "",
+      email:     ans.email || "",
+      // one per question — key must match Apps Script exactly
+      outcome,
+    })
+  }).catch(() => {})
+}
+
+---
+
+## Phase 5 — Output Sections
+
+After both files are generated and presented, output these sections clearly.
+
+### Step 1 — Google Sheet headers
+Click cell A1 in your Google Sheet and paste a single tab-separated line.
+Generate the correct columns for THIS form.
+
+### Step 2 — Apps Script
+1. Google Sheet → Extensions → Apps Script
+2. Delete existing code, paste below, click Save
+3. Deploy → New deployment → Web App
+4. Execute as: Me | Access: Anyone → Deploy
+5. Authorize, copy the Web App URL
+6. Paste URL into both files where it says YOUR_APPS_SCRIPT_URL_HERE
+
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const data  = JSON.parse(e.postData.contents);
+  sheet.appendRow([
+    data.timestamp,  // Column A — Timestamp
+    data.name,       // Column B — Name
+    data.phone,      // Column C — Phone
+    data.email,      // Column D — Email
+    // one per field...
+    data.outcome     // Column X — Outcome
+  ]);
+  return ContentService.createTextOutput("OK");
+}
+
+### Step 3 — Phone validation key (only if form has phone field)
+1. Go to: abstractapi.com/api/phone-validation
+2. Sign up free (30 seconds, no credit card)
+3. Copy API key and replace YOUR_ABSTRACT_API_KEY in both files.
+Free tier: 250 checks/month. Without key, format validation still works.
+
+### Step 4 — Embed instructions
+Output platform-specific embed instructions for:
+Framer, Webflow, Squarespace, Wix, WordPress, Custom HTML, React, Universal iFrame.
+
+---
+
+## Phase 6 — Common mistakes to avoid
+
+| Mistake | Fix |
+|---|---|
+| height: 100vh on root | Use min-height: 100vh |
+| overflow: hidden anywhere | Remove entirely |
+| Spreading answers object in sendToSheet | Always explicit key map |
+| position: absolute on active slides | position: relative when active |
+| Missing autocomplete on HTML inputs | Add given-name, tel, email |
+| OK button always enabled for choices | Disable until a choice is selected |
+| Answer not saved before advancing | Save to answers object in validator |
+| 1-indexed choice routing | Use 0-indexed (A=0, B=1, C=2...) |
+| Apps Script keys not matching | Every data.X must match X: in sendToSheet |
+| Sheet headers out of order | Column A = first item in appendRow |
+| contact validator not async | Must be async when phone check included |
+| HTML file has external dependencies | Must be fully self-contained |</pre>
+      <button class="copy-btn" onclick="copyText('skill-prompt', this)">Copy</button>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>A free resource by <a href="https://theinfostudio.io">TheInfoStudio.io</a></p>
+  <p><a href="https://theinfostudio.io">Book a call ↗</a></p>
+</footer>
+
+<script>
+function copyText(id, btn) {
+  const el = document.getElementById(id);
+  const text = el.innerText || el.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
